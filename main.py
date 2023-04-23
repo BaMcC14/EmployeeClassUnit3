@@ -36,35 +36,3 @@ class Employee:
         if len(title) > 0:
             self.jobtitle = title
 
-#return employee id
-    def get_employeeid(self):
-        return "Employee ID:" + str(self.employeeid)
-
-#returns salary
-    def get_salary(self):
-        return "${:,.2f}".format(self.salary)
-    
-#set salary if salary isn't an empty string
-    def set_salary(self, sal):
-        if sal > 0:
-            self.salary = sal
-
-#increase salary
-    def increase_salary(self, percent):
-        if percent > 0:
-            self.set_salary(self.salary + self.salary * percent)
-        else:
-            print("Increase of salary must be greater than 0.")
-
-
-
-sophia = Employee("Jack", "Krichen", 1000, "Manager", 50000)
-print(sophia.get_firstname())
-print(sophia.get_lastname())
-print(sophia.get_employeeid())
-print(sophia.get_jobtitle())
-print(sophia.get_salary())
-
-
-sophia.increase_salary(-0.02)
-print("After increase: " + sophia.get_salary())
