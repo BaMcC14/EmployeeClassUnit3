@@ -1,12 +1,10 @@
 import datetime
 
-class Employee:
-    def __init__(self, fname, lname, empid, title, sal):
+class Person:
+    def __init__(self, fname, lname, title):
         self.firstname = fname
         self.lastname = lname
-        self.employeeid = empid
         self.jobtitle = title
-        self.salary = sal
 
         self.hiredate = datetime.date.today()
 
@@ -35,4 +33,30 @@ class Employee:
     def set_jobtitle(self, title):
         if len(title) > 0:
             self.jobtitle = title
+
+
+class Employee(Person):
+    def __init__(self, fname, lname, title, sal, empid):
+        super().__init__(fname, lname, title)
+        self.employeeid = empid
+        self.salary = sal
+
+#Get employee id 
+def get_employeeid(self):
+    return "Employee ID: " + str(self.employeeid)
+
+#Return Salary
+def get_salary(self):
+    return "${:,.2f}".format + (self.salary)
+
+#Set Salary
+def set_salary(self, sal):
+    if sal > 0:
+        self.salary = sal
+
+def increase_salary(self, percent):
+    if percent > 0:
+        self.set_salary(self.salary + self.salary * percent)
+    else:
+        print("Increase of salary must be greater than 0.")
 
