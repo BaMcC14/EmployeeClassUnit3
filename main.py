@@ -45,6 +45,55 @@ def add_employee(employees):
     write_employees(employees)
     print(f"Employee {empid}: {sal} was added.\n")
 
+#display the list of employees
+def list_employees(employees):
+    for i, employee in enumerate(employees, start = 1):
+        print(f"{i} Employee ID: {employee[0]} (${employee[1]})")
+    print()
+
+#delete an employee based on ID
+def delete_employee(employees):
+    found = False
+    number = input("Enter in the employee ID: ")
+    for i, employee in enumerate(employees, start=0):
+        if(employee[0] == number):
+            print(f"Employee was deleted.\n")
+            employee = employees.pop(i)
+            found = True
+        
+    if(found == False):
+        print("Employee not found")
+    else:
+        write_employees(employees)
+
+#menu to display options.
+def display_menu():
+    print("The Employee Salary List Program")
+    print()
+    print("LIST OF COMMANDS")
+    print("list - List all employees")
+    print("add - Add an employee")
+    print("del - Delete an employee")
+    print("exit - Exit program")
+    print()
+
+display_menu()
+employees = read_employees()
+while True:
+    command = input("Command: ")
+    if command.lower() == 'list':
+        list_employees(employees)
+    elif command.lower() == 'add':
+        add_employee(employees)
+    elif command.lower() == 'del':
+        delete_employee(employees)
+    elif command.lower() == 'exit':
+        break
+    else:
+        print("Not a valid command. Please try again.\n")
+print("Ending Salary Program")
+
+
 class Person:
     def __init__(self, fname, lname, title):
         self.firstname = fname
@@ -160,17 +209,4 @@ class Contractor(Person):
         if get_hourlywage > 0:
             self.wage = get_hourlywage
     
-
-
-
-
-
-employees = read_employees()
-add_employee(employees)
-
-
-
-
-
-
 
