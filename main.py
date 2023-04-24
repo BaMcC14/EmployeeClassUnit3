@@ -1,4 +1,49 @@
 import datetime
+import csv
+import sys
+
+#File used to store employee information (Employee ID and Salary)
+FILENAME = 'employees.csv'
+
+#exiting the program 
+def exit_program():
+    print("Terminating program.")
+    sys.exit()
+
+#Read the employees from the employees.csv file
+def read_employees():
+    try:
+        employees = []
+        with open(FILENAME, newline="") as file:
+            reader = csv.reader(file)
+            for row in reader:
+                employees.append(row)
+            return employees
+    except FileNotFoundError as error:
+        print(f"Could not find {FILENAME} file.")
+        exit_program()
+    except Exception as e:
+        print(type(e), e)
+        exit_program
+
+#Writing to employees file
+def write_employees(employees):
+    try:
+        with open(FILENAME, "w", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerows(employees)
+    except Exception as e:
+        print(type(e), e)
+        exit_program()
+
+#add employee to the list
+def add_employee(employees):
+    empid = input("Enter the employee ID: ")
+    sal = input("Enter the salary of the employee: ")
+    employee = [empid,sal]
+    employees.append(employee)
+    write_employees(employees)
+    print(f"Employee {empid}: {sal} was added.\n")
 
 class Person:
     def __init__(self, fname, lname, title):
@@ -56,12 +101,14 @@ class Employee(Person):
         if sal > 0:
             self.salary = sal
 
+#increase salary by a percent
     def increase_salary(self, percent):
         if percent > 0:
             self.set_salary(self.salary + self.salary * percent)
         else:
             print("Increase of salary must be greater than 0.")
 
+#get vacation days
     def get_vacation_days(self):
         return "Vacation Days: " + str(self.vacationdays)
 
@@ -89,24 +136,6 @@ class Employee(Person):
             print(f"Employee does not have enought vacation days to take off {days} days.")
 
 
-emp1 = Employee('Jack', 'Krichen', 'Manager', 50000, 1)
-
-print(emp1.get_firstname())
-print(emp1.get_lastname())
-print(emp1.get_employeeid())
-print(emp1.get_jobtitle())
-print(emp1.get_salary())
-
-print(emp1.get_vacation_days())
-emp1.take_vacation_days(10)
-print(emp1.get_vacation_days())
-emp1.take_vacation_days(10)
-emp1.take_vacation_days(-1)
-
-emp1.increase_vacation_days_yearly()
-print(emp1.get_vacation_days())
-
-
 class Contractor(Person):
     def __init__(self, fname, lname, title, wage, contractorid):
         super().__init__(fname, lname, title)
@@ -131,11 +160,17 @@ class Contractor(Person):
         if get_hourlywage > 0:
             self.wage = get_hourlywage
     
-con = Contractor('Temp','Emp','Developer',60,2)
-print(con.get_firstname())
-print(con.get_lastname())
-print(con.get_contractorid())
-print(con.get_jobtitle())
-print(con.get_hourlywage())
-print(con.set_hourlywage(50))
-print(con.get_hourlywage())
+
+
+
+
+
+employees = read_employees()
+add_employee(employees)
+
+
+
+
+
+
+
